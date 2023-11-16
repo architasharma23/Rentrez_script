@@ -19,7 +19,6 @@ sp <- read.csv("Leptocoma_species_list.csv", header = T) #Read in a species list
 ## List of genes included as chunks - ATP6, ATP8, CO1, CO2, CO3, CYTB, GAPDH, MB, MUSK, ND1, ND2, ND3, ODC, RAG1, TGFB2
 
 ## ATP6
-
 ```{r}
 
 for (k in 1:nrow(sp)){
@@ -45,7 +44,6 @@ for (k in 1:nrow(sp)){
 ```
 
 ## ATP8
-
 ```{r}
 for (k in 1:nrow(sp)){
   f<-sp$SCINAME[k]
@@ -70,7 +68,6 @@ for (k in 1:nrow(sp)){
 ```
 
 ## CO1 (Try other combinations: COI, COX etc)
-
 ```{r}
 for (k in 1:nrow(sp)){
   f<-sp$SCINAME[k]
@@ -95,7 +92,6 @@ for (k in 1:nrow(sp)){
 ```
 
 ## CO2
-
 ```{r}
 for (k in 1:nrow(sp)){
   f<-sp$SCINAME[k]
@@ -119,7 +115,6 @@ for (k in 1:nrow(sp)){
 ```
 
 ## CO3
-
 ```{r}
 for (k in 1:nrow(sp)){
   f<-sp$SCINAME[k]
@@ -143,7 +138,6 @@ for (k in 1:nrow(sp)){
 ```
 
 ## CYTB
-
 ```{r}
 for (k in 1:nrow(sp)){
   f<-sp$SCINAME[k]
@@ -190,7 +184,6 @@ for (k in 1:nrow(sp)){
 ```
 
 ## MB
-
 ```{r}
 for (k in 1:nrow(sp)){
   f<-sp$SCINAME[k]

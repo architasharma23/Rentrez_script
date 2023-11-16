@@ -94,7 +94,7 @@ for (k in 1:nrow(sp)){
 
 ```
 
-#CO2
+## CO2
 
 ```{r}
 for (k in 1:nrow(sp)){
@@ -189,7 +189,7 @@ for (k in 1:nrow(sp)){
 } 
 ```
 
-##MB
+## MB
 
 ```{r}
 for (k in 1:nrow(sp)){
@@ -259,7 +259,7 @@ for (k in 1:nrow(sp)){
 } 
 ```
 
-#ND2
+## ND2
 ```{r}
 for (k in 1:nrow(sp)){
   f<-sp$SCINAME[k]

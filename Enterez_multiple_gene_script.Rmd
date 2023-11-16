@@ -1,0 +1,375 @@
+---
+title: "Genbank_Entrez_Endemics"
+author: "Archita Sharma"
+date: "2023-11-16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Species list will be variable, but the gene code chunks can be re-run
+
+```{r}
+library(rentrez)
+sp <- read.csv("Leptocoma_species_list.csv", header = T) #Read in a species list
+```
+
+## List of genes included as chunks - ATP6, ATP8, CO1, CO2, CO3, CYTB, GAPDH, MB, MUSK, ND1, ND2, ND3, ODC, RAG1, TGFB2
+
+## ATP6
+
+```{r}
+
+for (k in 1:nrow(sp)){
+  f<-sp$SCINAME[k]
+  i<-paste0(f, "[ORGN]", " ", "AND", " ", "ATP6")  #Here we are defining the search term - Species name, and the gene
+  x<-entrez_search(db = "nucleotide", term = i) #This performs the search
+  l<-length(x$ids) #here we see how many entries are there for each species for a given gene
+  if(l==0) next #if there is no entry it will skip to the next species
+  if(l>10) #if there are more than 10 entries then I have limited myself to only first 10 search hits
+    l<-10
+  
+  for (j in 1:l){
+    q<-entrez_summary(db = "nucleotide", id = x$ids[j]) #We gather the summary for the Genbank IDs that we got in the search results
+    if(q$moltype!="dna") next #sometimes it will also document rna, which I was not interested in so i skip the entry if its not dna
+    if(q$slen>2000) next #most of the genes that we need are going to be shorter than 2000bp
+    #sometimes a mitogenome will be one of the first hits, we do not want to downlaod a full mitogenome, so we avoid by skipping anything longer than 2000bp
+    p<-entrez_fetch(db = "nucleotide", id = x$ids[j], rettype = "fasta") #here we fetch the fasta files for the filtered Genbank IDs
+    r<-paste0(f,"_","ATP6", "_", j, ".fasta") #now you can define a name - for example here its going to be Species_ND2_genbankID.fasta
+    try(write(p, file = r)) #finally you write the output
+  }
+}
+
+```
+
+## ATP8
+
+```{r}
+for (k in 1:nrow(sp)){
+  f<-sp$SCINAME[k]
+  i<-paste0(f, "[ORGN]", " ", "AND", " ", "ATP8")  #Here we are defining the search term - Species name, and the gene
+  x<-entrez_search(db = "nucleotide", term = i) #This performs the search
+  l<-length(x$ids) #here we see how many entries are there for each species for a given gene
+  if(l==0) next #if there is no entry it will skip to the next species
+  if(l>10) #if there are more than 10 entries then I have limited myself to only first 10 search hits
+    l<-10
+  
+  for (j in 1:l){
+    q<-entrez_summary(db = "nucleotide", id = x$ids[j]) #We gather the summary for the Genbank IDs that we got in the search results
+    if(q$moltype!="dna") next #sometimes it will also document rna, which I was not interested in so i skip the entry if its not dna
+    if(q$slen>2000) next #most of the genes that we need are going to be shorter than 2000bp
+    #sometimes a mitogenome will be one of the first hits, we do not want to downlaod a full mitogenome, so we avoid by skipping anything longer than 2000bp
+    p<-entrez_fetch(db = "nucleotide", id = x$ids[j], rettype = "fasta") #here we fetch the fasta files for the filtered Genbank IDs
+    r<-paste0(f,"_","ATP8", "_", j, ".fasta") #now you can define a name - for example here its going to be Species_ND2_genbankID.fasta
+    try(write(p, file = r)) #finally you write the output
+  }
+}
+
+```
+
+## CO1 (Try other combinations: COI, COX etc)
+
+```{r}
+for (k in 1:nrow(sp)){
+  f<-sp$SCINAME[k]
+  i<-paste0(f, "[ORGN]", " ", "AND", " ", "CO1")  #Here we are defining the search term - Species name, and the gene
+  x<-entrez_search(db = "nucleotide", term = i) #This performs the search
+  l<-length(x$ids) #here we see how many entries are there for each species for a given gene
+  if(l==0) next #if there is no entry it will skip to the next species
+  if(l>10) #if there are more than 10 entries then I have limited myself to only first 10 search hits
+    l<-10
+  
+  for (j in 1:l){
+    q<-entrez_summary(db = "nucleotide", id = x$ids[j]) #We gather the summary for the Genbank IDs that we got in the search results
+    if(q$moltype!="dna") next #sometimes it will also document rna, which I was not interested in so i skip the entry if its not dna
+    if(q$slen>2000) next #most of the genes that we need are going to be shorter than 2000bp
+    #sometimes a mitogenome will be one of the first hits, we do not want to downlaod a full mitogenome, so we avoid by skipping anything longer than 2000bp
+    p<-entrez_fetch(db = "nucleotide", id = x$ids[j], rettype = "fasta") #here we fetch the fasta files for the filtered Genbank IDs
+    r<-paste0(f,"_","CO1", "_", j, ".fasta") #now you can define a name - for example here its going to be Species_ND2_genbankID.fasta
+    try(write(p, file = r)) #finally you write the output
+  }
+}
+
+```
+
+#CO2
+
+```{r}
+for (k in 1:nrow(sp)){
+  f<-sp$SCINAME[k]
+  i<-paste0(f, "[ORGN]", " ", "AND", " ", "CO2")  #Here we are defining the search term - Species name, and the gene
+  x<-entrez_search(db = "nucleotide", term = i) #This performs the search
+  l<-length(x$ids) #here we see how many entries are there for each species for a given gene
+  if(l==0) next #if there is no entry it will skip to the next species
+  if(l>10) #if there are more than 10 entries then I have limited myself to only first 10 search hits
+    l<-10
+  
+  for (j in 1:l){
+    q<-entrez_summary(db = "nucleotide", id = x$ids[j]) #We gather the summary for the Genbank IDs that we got in the search results
+    if(q$moltype!="dna") next #sometimes it will also document rna, which I was not interested in so i skip the entry if its not dna
+    if(q$slen>2000) next #most of the genes that we need are going to be shorter than 2000bp
+    #sometimes a mitogenome will be one of the first hits, we do not want to downlaod a full mitogenome, so we avoid by skipping anything longer than 2000bp
+    p<-entrez_fetch(db = "nucleotide", id = x$ids[j], rettype = "fasta") #here we fetch the fasta files for the filtered Genbank IDs
+    r<-paste0(f,"_","CO2", "_", j, ".fasta") #now you can define a name - for example here its going to be Species_ND2_genbankID.fasta
+    try(write(p, file = r)) #finally you write the output
+  }
+}  
+```
+
+## CO3
+
+```{r}
+for (k in 1:nrow(sp)){
+  f<-sp$SCINAME[k]
+  i<-paste0(f, "[ORGN]", " ", "AND", " ", "CO3")  #Here we are defining the search term - Species name, and the gene
+  x<-entrez_search(db = "nucleotide", term = i) #This performs the search
+  l<-length(x$ids) #here we see how many entries are there for each species for a given gene
+  if(l==0) next #if there is no entry it will skip to the next species
+  if(l>10) #if there are more than 10 entries then I have limited myself to only first 10 search hits
+    l<-10
+  
+  for (j in 1:l){
+    q<-entrez_summary(db = "nucleotide", id = x$ids[j]) #We gather the summary for the Genbank IDs that we got in the search results
+    if(q$moltype!="dna") next #sometimes it will also document rna, which I was not interested in so i skip the entry if its not dna
+    if(q$slen>2000) next #most of the genes that we need are going to be shorter than 2000bp
+    #sometimes a mitogenome will be one of the first hits, we do not want to downlaod a full mitogenome, so we avoid by skipping anything longer than 2000bp
+    p<-entrez_fetch(db = "nucleotide", id = x$ids[j], rettype = "fasta") #here we fetch the fasta files for the filtered Genbank IDs
+    r<-paste0(f,"_","CO3", "_", j, ".fasta") #now you can define a name - for example here its going to be Species_ND2_genbankID.fasta
+    try(write(p, file = r)) #finally you write the output
+  }
+} 
+```
+
+## CYTB
+
+```{r}
+for (k in 1:nrow(sp)){
+  f<-sp$SCINAME[k]
+  i<-paste0(f, "[ORGN]", " ", "AND", " ", "CYTB")  #Here we are defining the search term - Species name, and the gene
+  x<-entrez_search(db = "nucleotide", term = i) #This performs the search
+  l<-length(x$ids) #here we see how many entries are there for each species for a given gene
+  if(l==0) next #if there is no entry it will skip to the next species
+  if(l>10) #if there are more than 10 entries then I have limited myself to only first 10 search hits
+    l<-10
+  
+  for (j in 1:l){
+    q<-entrez_summary(db = "nucleotide", id = x$ids[j]) #We gather the summary for the Genbank IDs that we got in the search results
+    if(q$moltype!="dna") next #sometimes it will also document rna, which I was not interested in so i skip the entry if its not dna
+    if(q$slen>2000) next #most of the genes that we need are going to be shorter than 2000bp
+    #sometimes a mitogenome will be one of the first hits, we do not want to downlaod a full mitogenome, so we avoid by skipping anything longer than 2000bp
+    p<-entrez_fetch(db = "nucleotide", id = x$ids[j], rettype = "fasta") #here we fetch the fasta files for the filtered Genbank IDs
+    r<-paste0(f,"_","CYTB", "_", j, ".fasta") #now you can define a name - for example here its going to be Species_ND2_genbankID.fasta
+    try(write(p, file = r)) #finally you write the output
+  }
+} 
+```
+
+## GAPDH
+```{r}
+for (k in 1:nrow(sp)){
+  f<-sp$SCINAME[k]
+  i<-paste0(f, "[ORGN]", " ", "AND", " ", "GAPDH")  #Here we are defining the search term - Species name, and the gene
+  x<-entrez_search(db = "nucleotide", term = i) #This performs the search
+  l<-length(x$ids) #here we see how many entries are there for each species for a given gene
+  if(l==0) next #if there is no entry it will skip to the next species
+  if(l>10) #if there are more than 10 entries then I have limited myself to only first 10 search hits
+    l<-10
+  
+  for (j in 1:l){
+    q<-entrez_summary(db = "nucleotide", id = x$ids[j]) #We gather the summary for the Genbank IDs that we got in the search results
+    if(q$moltype!="dna") next #sometimes it will also document rna, which I was not interested in so i skip the entry if its not dna
+    if(q$slen>2000) next #most of the genes that we need are going to be shorter than 2000bp
+    #sometimes a mitogenome will be one of the first hits, we do not want to downlaod a full mitogenome, so we avoid by skipping anything longer than 2000bp
+    p<-entrez_fetch(db = "nucleotide", id = x$ids[j], rettype = "fasta") #here we fetch the fasta files for the filtered Genbank IDs
+    r<-paste0(f,"_","GAPDH", "_", j, ".fasta") #now you can define a name - for example here its going to be Species_ND2_genbankID.fasta
+    try(write(p, file = r)) #finally you write the output
+  }
+} 
+```
+
+##MB
+
+```{r}
+for (k in 1:nrow(sp)){
+  f<-sp$SCINAME[k]
+  i<-paste0(f, "[ORGN]", " ", "AND", " ", "MB")  #Here we are defining the search term - Species name, and the gene
+  x<-entrez_search(db = "nucleotide", term = i) #This performs the search
+  l<-length(x$ids) #here we see how many entries are there for each species for a given gene
+  if(l==0) next #if there is no entry it will skip to the next species
+  if(l>10) #if there are more than 10 entries then I have limited myself to only first 10 search hits
+    l<-10
+  
+  for (j in 1:l){
+    q<-entrez_summary(db = "nucleotide", id = x$ids[j]) #We gather the summary for the Genbank IDs that we got in the search results
+    if(q$moltype!="dna") next #sometimes it will also document rna, which I was not interested in so i skip the entry if its not dna
+    if(q$slen>2000) next #most of the genes that we need are going to be shorter than 2000bp
+    #sometimes a mitogenome will be one of the first hits, we do not want to downlaod a full mitogenome, so we avoid by skipping anything longer than 2000bp
+    p<-entrez_fetch(db = "nucleotide", id = x$ids[j], rettype = "fasta") #here we fetch the fasta files for the filtered Genbank IDs
+    r<-paste0(f,"_","MB", "_", j, ".fasta") #now you can define a name - for example here its going to be Species_ND2_genbankID.fasta
+    try(write(p, file = r)) #finally you write the output
+  }
+} 
+```
+
+## MUSK
+```{r}
+for (k in 1:nrow(sp)){
+  f<-sp$SCINAME[k]
+  i<-paste0(f, "[ORGN]", " ", "AND", " ", "MUSK")  #Here we are defining the search term - Species name, and the gene
+  x<-entrez_search(db = "nucleotide", term = i) #This performs the search
+  l<-length(x$ids) #here we see how many entries are there for each species for a given gene
+  if(l==0) next #if there is no entry it will skip to the next species
+  if(l>10) #if there are more than 10 entries then I have limited myself to only first 10 search hits
+    l<-10
+  
+  for (j in 1:l){
+    q<-entrez_summary(db = "nucleotide", id = x$ids[j]) #We gather the summary for the Genbank IDs that we got in the search results
+    if(q$moltype!="dna") next #sometimes it will also document rna, which I was not interested in so i skip the entry if its not dna
+    if(q$slen>2000) next #most of the genes that we need are going to be shorter than 2000bp
+    #sometimes a mitogenome will be one of the first hits, we do not want to downlaod a full mitogenome, so we avoid by skipping anything longer than 2000bp
+    p<-entrez_fetch(db = "nucleotide", id = x$ids[j], rettype = "fasta") #here we fetch the fasta files for the filtered Genbank IDs
+    r<-paste0(f,"_","MUSK", "_", j, ".fasta") #now you can define a name - for example here its going to be Species_ND2_genbankID.fasta
+    try(write(p, file = r)) #finally you write the output
+  }
+} 
+```
+
+## ND1
+```{r}
+for (k in 1:nrow(sp)){
+  f<-sp$SCINAME[k]
+  i<-paste0(f, "[ORGN]", " ", "AND", " ", "ND1")  #Here we are defining the search term - Species name, and the gene
+  x<-entrez_search(db = "nucleotide", term = i) #This performs the search
+  l<-length(x$ids) #here we see how many entries are there for each species for a given gene
+  if(l==0) next #if there is no entry it will skip to the next species
+  if(l>10) #if there are more than 10 entries then I have limited myself to only first 10 search hits
+    l<-10
+  
+  for (j in 1:l){
+    q<-entrez_summary(db = "nucleotide", id = x$ids[j]) #We gather the summary for the Genbank IDs that we got in the search results
+    if(q$moltype!="dna") next #sometimes it will also document rna, which I was not interested in so i skip the entry if its not dna
+    if(q$slen>2000) next #most of the genes that we need are going to be shorter than 2000bp
+    #sometimes a mitogenome will be one of the first hits, we do not want to downlaod a full mitogenome, so we avoid by skipping anything longer than 2000bp
+    p<-entrez_fetch(db = "nucleotide", id = x$ids[j], rettype = "fasta") #here we fetch the fasta files for the filtered Genbank IDs
+    r<-paste0(f,"_","ND1", "_", j, ".fasta") #now you can define a name - for example here its going to be Species_ND2_genbankID.fasta
+    try(write(p, file = r)) #finally you write the output
+  }
+} 
+```
+
+#ND2
+```{r}
+for (k in 1:nrow(sp)){
+  f<-sp$SCINAME[k]
+  i<-paste0(f, "[ORGN]", " ", "AND", " ", "ND2")  #Here we are defining the search term - Species name, and the gene
+  x<-entrez_search(db = "nucleotide", term = i) #This performs the search
+  l<-length(x$ids) #here we see how many entries are there for each species for a given gene
+  if(l==0) next #if there is no entry it will skip to the next species
+  if(l>10) #if there are more than 10 entries then I have limited myself to only first 10 search hits
+    l<-10
+  
+  for (j in 1:l){
+    q<-entrez_summary(db = "nucleotide", id = x$ids[j]) #We gather the summary for the Genbank IDs that we got in the search results
+    if(q$moltype!="dna") next #sometimes it will also document rna, which I was not interested in so i skip the entry if its not dna
+    if(q$slen>2000) next #most of the genes that we need are going to be shorter than 2000bp
+    #sometimes a mitogenome will be one of the first hits, we do not want to downlaod a full mitogenome, so we avoid by skipping anything longer than 2000bp
+    p<-entrez_fetch(db = "nucleotide", id = x$ids[j], rettype = "fasta") #here we fetch the fasta files for the filtered Genbank IDs
+    r<-paste0(f,"_","ND2", "_", j, ".fasta") #now you can define a name - for example here its going to be Species_ND2_genbankID.fasta
+    try(write(p, file = r)) #finally you write the output
+  }
+} 
+```
+
+## ND3
+```{r}
+for (k in 1:nrow(sp)){
+  f<-sp$SCINAME[k]
+  i<-paste0(f, "[ORGN]", " ", "AND", " ", "ND3")  #Here we are defining the search term - Species name, and the gene
+  x<-entrez_search(db = "nucleotide", term = i) #This performs the search
+  l<-length(x$ids) #here we see how many entries are there for each species for a given gene
+  if(l==0) next #if there is no entry it will skip to the next species
+  if(l>10) #if there are more than 10 entries then I have limited myself to only first 10 search hits
+    l<-10
+  
+  for (j in 1:l){
+    q<-entrez_summary(db = "nucleotide", id = x$ids[j]) #We gather the summary for the Genbank IDs that we got in the search results
+    if(q$moltype!="dna") next #sometimes it will also document rna, which I was not interested in so i skip the entry if its not dna
+    if(q$slen>2000) next #most of the genes that we need are going to be shorter than 2000bp
+    #sometimes a mitogenome will be one of the first hits, we do not want to downlaod a full mitogenome, so we avoid by skipping anything longer than 2000bp
+    p<-entrez_fetch(db = "nucleotide", id = x$ids[j], rettype = "fasta") #here we fetch the fasta files for the filtered Genbank IDs
+    r<-paste0(f,"_","ND3", "_", j, ".fasta") #now you can define a name - for example here its going to be Species_ND2_genbankID.fasta
+    try(write(p, file = r)) #finally you write the output
+  }
+} 
+```
+
+## ODC
+```{r}
+for (k in 1:nrow(sp)){
+  f<-sp$SCINAME[k]
+  i<-paste0(f, "[ORGN]", " ", "AND", " ", "ODC")  #Here we are defining the search term - Species name, and the gene
+  x<-entrez_search(db = "nucleotide", term = i) #This performs the search
+  l<-length(x$ids) #here we see how many entries are there for each species for a given gene
+  if(l==0) next #if there is no entry it will skip to the next species
+  if(l>10) #if there are more than 10 entries then I have limited myself to only first 10 search hits
+    l<-10
+  
+  for (j in 1:l){
+    q<-entrez_summary(db = "nucleotide", id = x$ids[j]) #We gather the summary for the Genbank IDs that we got in the search results
+    if(q$moltype!="dna") next #sometimes it will also document rna, which I was not interested in so i skip the entry if its not dna
+    if(q$slen>2000) next #most of the genes that we need are going to be shorter than 2000bp
+    #sometimes a mitogenome will be one of the first hits, we do not want to downlaod a full mitogenome, so we avoid by skipping anything longer than 2000bp
+    p<-entrez_fetch(db = "nucleotide", id = x$ids[j], rettype = "fasta") #here we fetch the fasta files for the filtered Genbank IDs
+    r<-paste0(f,"_","ODC", "_", j, ".fasta") #now you can define a name - for example here its going to be Species_ND2_genbankID.fasta
+    try(write(p, file = r)) #finally you write the output
+  }
+} 
+```
+
+## RAG1
+```{r}
+for (k in 1:nrow(sp)){
+  f<-sp$SCINAME[k]
+  i<-paste0(f, "[ORGN]", " ", "AND", " ", "RAG1")  #Here we are defining the search term - Species name, and the gene
+  x<-entrez_search(db = "nucleotide", term = i) #This performs the search
+  l<-length(x$ids) #here we see how many entries are there for each species for a given gene
+  if(l==0) next #if there is no entry it will skip to the next species
+  if(l>10) #if there are more than 10 entries then I have limited myself to only first 10 search hits
+    l<-10
+  
+  for (j in 1:l){
+    q<-entrez_summary(db = "nucleotide", id = x$ids[j]) #We gather the summary for the Genbank IDs that we got in the search results
+    if(q$moltype!="dna") next #sometimes it will also document rna, which I was not interested in so i skip the entry if its not dna
+    if(q$slen>2000) next #most of the genes that we need are going to be shorter than 2000bp
+    #sometimes a mitogenome will be one of the first hits, we do not want to downlaod a full mitogenome, so we avoid by skipping anything longer than 2000bp
+    p<-entrez_fetch(db = "nucleotide", id = x$ids[j], rettype = "fasta") #here we fetch the fasta files for the filtered Genbank IDs
+    r<-paste0(f,"_","RAG1", "_", j, ".fasta") #now you can define a name - for example here its going to be Species_ND2_genbankID.fasta
+    try(write(p, file = r)) #finally you write the output
+  }
+} 
+```
+
+## TGFB2
+```{r}
+for (k in 1:nrow(sp)){
+  f<-sp$SCINAME[k]
+  i<-paste0(f, "[ORGN]", " ", "AND", " ", "TGFB2")  #Here we are defining the search term - Species name, and the gene
+  x<-entrez_search(db = "nucleotide", term = i) #This performs the search
+  l<-length(x$ids) #here we see how many entries are there for each species for a given gene
+  if(l==0) next #if there is no entry it will skip to the next species
+  if(l>10) #if there are more than 10 entries then I have limited myself to only first 10 search hits
+    l<-10
+  
+  for (j in 1:l){
+    q<-entrez_summary(db = "nucleotide", id = x$ids[j]) #We gather the summary for the Genbank IDs that we got in the search results
+    if(q$moltype!="dna") next #sometimes it will also document rna, which I was not interested in so i skip the entry if its not dna
+    if(q$slen>2000) next #most of the genes that we need are going to be shorter than 2000bp
+    #sometimes a mitogenome will be one of the first hits, we do not want to downlaod a full mitogenome, so we avoid by skipping anything longer than 2000bp
+    p<-entrez_fetch(db = "nucleotide", id = x$ids[j], rettype = "fasta") #here we fetch the fasta files for the filtered Genbank IDs
+    r<-paste0(f,"_","TGFB2", "_", j, ".fasta") #now you can define a name - for example here its going to be Species_ND2_genbankID.fasta
+    try(write(p, file = r)) #finally you write the output
+  }
+} 
+```
